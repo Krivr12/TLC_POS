@@ -1,0 +1,47 @@
+.table-area {
+  margin: 25px 30px;
+  width: 95%;
+  border: 2px solid;           // Outer border
+  border-radius: 20px;              // Rounded corners
+  overflow: hidden;                 // Enforces the border-radius
+}
+
+.products-table {
+  margin-top: 1rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;        // Removes spacing between rows
+  border-radius: 20px;
+  background-color: white;
+}
+
+.table th {
+  font-weight: bold;
+  background-color: white;
+}
+
+.mat-header-cell,
+.mat-cell {
+  border-bottom: 1px;
+}
+
+.paginator {
+  background-color: white;
+  border-top: 1px solid black;
+  padding: 0.5rem;
+}
+
+.row-text {
+  color: black;
+}
+
+.header-text {
+  color: black;
+  font-weight: bold;
+}
+
+.mat-column-category {
+  font-style: italic;
+}

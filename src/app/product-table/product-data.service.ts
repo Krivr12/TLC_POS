@@ -1,0 +1,19 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, switchMap } from 'rxjs';
+import { csvToElementArray } from '../utils/csv-parser.util';
+import { ProductTableItem } from './product-table-datasource';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ProductDataService {
+
+  constructor(private http: HttpClient) {}
+
+  getProducts(): Observable<ProductTableItem[]> {
+    return this.http.get('../assets/elements.csv', { responseType: 'text' }).pipe(
+      switchMap(csvString => csvToElementArray(csvString))  // switchMap flattens Promise into Observable
+    );
+  }
+}

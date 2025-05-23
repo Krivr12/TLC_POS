@@ -1,0 +1,28 @@
+<div class="mat-elevation-z2 products-table table-area">
+  <table mat-table class="table" matSort aria-label="Elements">
+    
+    <!-- Id Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell class ="header-text" *matHeaderCellDef mat-sort-header>Id</th>
+      <td mat-cell class ="row-text" *matCellDef="let row">{{row.id}}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+      <td mat-cell class ="row-text" *matCellDef="let row">{{row.name}}</td>
+    </ng-container>
+  
+
+    <tr mat-header-row class ="header-text" *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator class = "paginator row-text" #paginator
+      [length]="dataSource.data.length"
+      [pageIndex]="0"
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 20]"
+      aria-label="Select page">
+  </mat-paginator>
+</div>
