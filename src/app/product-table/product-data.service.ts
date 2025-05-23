@@ -12,8 +12,12 @@ export class ProductDataService {
   constructor(private http: HttpClient) {}
 
   getProducts(): Observable<ProductTableItem[]> {
-    return this.http.get('../assets/elements.csv', { responseType: 'text' }).pipe(
-      switchMap(csvString => csvToElementArray(csvString))  // switchMap flattens Promise into Observable
-    );
-  }
+  return this.http.get('/assets/elements.csv', { responseType: 'text' }).pipe(
+    switchMap(csvString => {
+      console.log('CSV String:', csvString);
+      return csvToElementArray(csvString);
+    })
+  );
+}
+
 }
