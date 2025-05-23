@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+.table_name_header {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.table_name {
+    font-size: 32px; /* Set your desired size */
+    font-weight: 700; /* 700 is bold — use 300-700 depending on how thick you want it */ 
+    text-align: left;
+    padding-left: 30px;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-family: 'Poppins', sans-serif;  
+}
+
+
+.table_buttons {
+    display: flex;
+    position: center;
+    align-items: right;
+    justify-content: space-between;
+    margin-right: 30px;
+}
+  
+    
+
+.export_button {
+    border: none;
+    color: black;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 50px;
+    border: 1px solid black;
+    font-family: 'Poppins', sans-serif;  
+    font-size: 16px;
+    font-weight: 700;
+    margin-right: 10px;
+}
+
+
+.add_button {
+    border: none;
+    color: #fbfbfb;
+    background-color: #634941;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 50px;  
+    font-family: 'Poppins', sans-serif;  
+    font-size: 16px;
+    font-weight: 700;
+    margin-right: 10px;
+}
+

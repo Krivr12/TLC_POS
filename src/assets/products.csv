@@ -1,0 +1,11 @@
+ProductName,ProductID,VariantGroupID,SKU,CategoryID
+Notebook,1,1001,NB001,10
+Smartphone,2,1002,SP002,20
+Wireless Mouse,3,1003,WM003,30
+Keyboard,4,1004,KB004,30
+Monitor,5,1005,MN005,40
+Charger,6,1006,CH006,20
+USB Cable,7,1007,UC007,20
+Tablet,8,1008,TB008,20
+Headphones,9,1009,HP009,30
+Camera,10,1010,CM010,50

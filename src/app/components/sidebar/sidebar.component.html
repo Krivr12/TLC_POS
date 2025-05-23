@@ -1,0 +1,183 @@
+<div class="sidebar">
+  <h1>Tender
+      Loving 
+      Cakes
+  </h1>
+
+  <a
+    [routerLink]="['/dashboard']"
+    [ngClass]="{ 'active': activeLink === 'dashboard' }"
+    (click)="ClickLinkHandler($event, 'dashboard')"
+  >
+  <div class="icon-container">
+    <img
+      *ngIf="activeLink === 'dashboard'"
+      src="assets/icons/dashboard-active.png"
+      alt="Dashboard Icon"
+      class="sidebar-icon"
+    />
+    <img
+      *ngIf="activeLink !== 'dashboard'"
+      src="assets\icons\dashboard.png"
+      class="sidebar-icon"
+    />
+  </div>
+  Dashboard
+</a>
+  <a
+    [routerLink]="['/products']"
+    [ngClass]="{ 'active': activeLink === 'products' }"
+    (click)="ClickLinkHandler($event, 'products')"
+  >
+    <div class="icon-container">
+      <img
+        *ngIf="activeLink === 'products'"
+        src="assets/icons/products-active.png"
+        alt="Products Icon"
+        class="sidebar-icon"
+      />
+      <img
+        *ngIf="activeLink !== 'products'"
+        src="assets/icons/products.png"
+        alt="Products Icon"
+        class="sidebar-icon"
+      />
+    </div>
+    Products
+  </a>
+
+  <a
+    [routerLink]="['/suppliers']"
+    [ngClass]="{ 'active': activeLink === 'suppliers' }"
+    (click)="ClickLinkHandler($event, 'suppliers')"
+  >
+    <div class="icon-container">
+      <img
+        *ngIf="activeLink === 'suppliers'"
+        src="assets\icons\suppliers-active.png"
+        alt="Suppliers Icon"
+        class="sidebar-icon"
+      />
+      <img
+        *ngIf="activeLink !== 'suppliers'"
+        src="assets\icons\supliers.png"
+        alt="Suppliers Icon"
+        class="sidebar-icon"
+      />
+    </div>
+    Suppliers
+  </a>
+
+  <a
+    [routerLink]="['/employees']"
+    [ngClass]="{ 'active': activeLink === 'employees' }"
+    (click)="ClickLinkHandler($event, 'employees')"
+  >
+    <div class="icon-container">
+      <img
+        *ngIf="activeLink === 'employees'"
+        src="assets/icons/employees-active.png"
+        alt="Employees Icon"
+        class="sidebar-icon"
+      />
+      <img
+        *ngIf="activeLink !== 'employees'"
+        src="assets/icons/employees.png"
+        alt="Employees Icon"
+        class="sidebar-icon"
+      />
+    </div>
+    Employees
+  </a>
+
+  <a
+    [routerLink]="['/inventory']"
+    [ngClass]="{ 'active': activeLink === 'inventory' }"
+    (click)="ClickLinkHandler($event, 'inventory')"
+  >
+    <div class="icon-container">
+      <img
+        *ngIf="activeLink === 'inventory'"
+        src="assets\icons\inventory-active.png"
+        alt="Inventory Icon"
+        class="sidebar-icon"
+      />
+      <img
+        *ngIf="activeLink !== 'inventory'"
+        src="assets/icons/inventory.png"
+        alt="Inventory Icon"
+        class="sidebar-icon"
+      />
+    </div>
+    Inventory
+  </a>
+
+  <a
+    [routerLink]="['/transaction']"
+    [ngClass]="{ 'active': activeLink === 'transaction' }"
+    (click)="ClickLinkHandler($event, 'transaction')"
+  >
+    <div class="icon-container">
+      <img
+        *ngIf="activeLink === 'transaction'"
+        src="assets/icons/transaction-active.png"
+        alt="Transaction Icon"
+        class="sidebar-icon"
+      />
+      <img
+        *ngIf="activeLink !== 'transaction'"
+        src="assets/icons/transaction.png"
+        alt="Transaction Icon"
+        class="sidebar-icon"
+      />
+    </div>
+    Transaction
+  </a>
+
+  <a
+    [routerLink]="['/settings']"
+    [ngClass]="{ 'active': activeLink === 'settings' }"
+    (click)="ClickLinkHandler($event, 'settings')"
+  >
+    <div class="icon-container">
+      <img
+        *ngIf="activeLink === 'settings'"
+        src="assets/icons/settings-active.png"
+        alt="Settings Icon"
+        class="sidebar-icon"
+      />
+      <img
+        *ngIf="activeLink !== 'settings'"
+        src="assets/icons/settings.png"
+        alt="Settings Icon"
+        class="sidebar-icon"
+      />
+    </div>
+    Settings
+  </a>
+  
+  <a></a><a></a><a></a><a></a><a></a><a></a><a></a><a></a><a></a>
+ 
+
+  <a
+    [routerLink]="['/logout']"
+    [ngClass]="{ 'active': activeLink === 'logout' }"
+    (click)="ClickLinkHandler($event, 'logout')"
+  >
+    <div class="icon-container">
+      <img
+        *ngIf="activeLink === 'logout'"
+        src="assets/icons/logout-active.png"
+        alt="Logout Icon"
+        class="sidebar-icon"
+      />
+      <img
+        *ngIf="activeLink !== 'logout'"
+        src="assets/icons/logout.png"
+        alt="Logout Icon"
+        class="sidebar-icon"
+      />
+    </div>
+    Logout
+  </a>
+</div>
