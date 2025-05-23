@@ -16,17 +16,24 @@ export class ProductTableComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<ProductTableItem>;
+
+
+
   dataSource!: ProductTableDataSource;
 
   displayedColumns = ['id', 'name'];
 
   constructor(private productDataService: ProductDataService) {}
 
+  ngOnInit(): void {
+  this.dataSource = new ProductTableDataSource(this.productDataService);
+}
+
   ngAfterViewInit(): void {
-    this.dataSource = new ProductTableDataSource(this.productDataService); // ✅ Pass service
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
+    console.log("table components")
   }
 
   onFileSelected(event: Event): void {

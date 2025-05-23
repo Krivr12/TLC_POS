@@ -9,10 +9,15 @@ export function csvToElementArray(csv: string): Promise<ProductTableItem[]> {
       complete: (result) => {
         try {
           const raw = result.data as any[];
+          console.log('Raw parsed data:', raw); // 👈 Log raw parsed rows
+
           const formatted: ProductTableItem[] = raw.map(row => ({
             id: Number(row.id),
             name: row.name?.trim(),
           }));
+
+          console.log('Formatted ProductTableItem[]:', formatted); // 👈 Log transformed data
+
           resolve(formatted);
         } catch (error) {
           reject('CSV mapping error: ' + error);

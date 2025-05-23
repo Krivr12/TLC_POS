@@ -139,30 +139,38 @@ export class ProductTableDataSource extends DataSource<ProductTableItem> {
   }
 
   connect(): Observable<ProductTableItem[]> {
-    return this.productDataService.getProducts().pipe(
-      mergeMap(data => {
-        this.data = data;
-        if (this.paginator && this.sort) {
-          return merge(of(this.data), this.paginator.page, this.sort.sortChange).pipe(
-            map(() => this.getPagedData(this.getSortedData([...this.data])))
-          );
-        } else {
-          return of(this.getSortedData(this.data));
-        }
-      })
-    );
-  }
+  return this.productDataService.getProducts().pipe(
+    mergeMap(data => {
+      console.log('Product data fetched:', data); // Log the fetched data
+      this.data = data;
+
+      if (this.paginator && this.sort) {
+        return merge(of(this.data), this.paginator.page, this.sort.sortChange).pipe(
+          map(() => {
+            const sortedPagedData = this.getPagedData(this.getSortedData([...this.data]));
+            console.log('Sorted & paged data:', sortedPagedData); // Log after sorting and paging
+            return sortedPagedData;
+          })
+        );
+      } else {
+        const sortedData = this.getSortedData(this.data);
+        console.log('Sorted data without paginator or sort:', sortedData); // Log fallback
+        return of(sortedData);
+      }
+    })
+  );
+}
+
 
   disconnect(): void {}
 
   private getPagedData(data: ProductTableItem[]): ProductTableItem[] {
-    if (this.paginator) {
-      const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-      return data.slice(startIndex, this.paginator.pageSize);
-    } else {
-      return data;
-    }
+  if (this.paginator) {
+    const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+    return data.slice(startIndex, startIndex + this.paginator.pageSize);
   }
+  return data;
+}
 
 private getSortedData(data: ProductTableItem[]): ProductTableItem[] {
   if (!this.sort?.active || !this.sort?.direction) {

@@ -10,5 +10,4 @@ import { CommonModule } from '@angular/common';
   styleUrl: './products.component.scss'
 })
 export class ProductsComponent {
-  
 }
