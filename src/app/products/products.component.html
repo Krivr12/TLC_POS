@@ -8,12 +8,24 @@
             Export to CSV
         </div>
 
+        <a
+        [routerLink]="['/add-product']"
+        [ngClass]="{ 'active': activeLink === 'add-product' }"
+        (click)="ClickLinkHandler('add-product')"
+        >
         <div class="add_button">
-           Add New Product
+            Add New Product
         </div>
+        </a>
     </div>
 </div>
 
 <div>
     <app-product-table></app-product-table>
 </div>
+
+
+
+
+
+

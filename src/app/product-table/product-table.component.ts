@@ -21,7 +21,9 @@ export class ProductTableComponent implements AfterViewInit {
 
   dataSource!: ProductTableDataSource;
 
-  displayedColumns = ['id', 'name'];
+  // displayedColumns = ['id', 'name'];
+
+  displayedColumns = ['ProductName', 'ProductID', 'VariantGroupID', 'SKU', 'CategoryID'];
 
   constructor(private productDataService: ProductDataService) {}
 

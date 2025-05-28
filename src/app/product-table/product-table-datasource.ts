@@ -125,8 +125,14 @@ import { ProductDataService } from './product-data.service';
 
 // Define the model
 export interface ProductTableItem {
-  name: string;
-  id: number;
+  // name: string;
+  // id: number;
+
+  ProductName: string;
+  ProductID: number;
+  VariantGroupID: string;
+  SKU: string;
+  CategoryID: string;
 }
 
 export class ProductTableDataSource extends DataSource<ProductTableItem> {
@@ -180,8 +186,14 @@ private getSortedData(data: ProductTableItem[]): ProductTableItem[] {
   const isAsc = this.sort.direction === 'asc'; // ✅ boolean
   return data.sort((a, b) => {
     switch (this.sort!.active) {
-      case 'name': return compare(a.name, b.name, isAsc);
-      case 'id': return compare(+a.id, +b.id, isAsc);
+      // case 'name': return compare(a.name, b.name, isAsc);
+      // case 'id': return compare(+a.id, +b.id, isAsc);
+
+      case 'ProductName': return compare(a.ProductName, b.ProductName, isAsc);
+      case 'ProductID': return compare(+a.ProductID, +b.ProductID, isAsc);
+      case 'VariantGroupID': return compare(a.VariantGroupID, b.VariantGroupID, isAsc);
+      case 'SKU': return compare(a.SKU, b.SKU, isAsc);
+      case 'CategoryID': return compare(a.CategoryID, b.CategoryID, isAsc);
       default: return 0;
     }
   });
