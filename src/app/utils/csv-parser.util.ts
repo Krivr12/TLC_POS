@@ -12,8 +12,15 @@ export function csvToElementArray(csv: string): Promise<ProductTableItem[]> {
           console.log('Raw parsed data:', raw); // 👈 Log raw parsed rows
 
           const formatted: ProductTableItem[] = raw.map(row => ({
-            id: Number(row.id),
-            name: row.name?.trim(),
+            // id: Number(row.id),
+            // name: row.name?.trim(),
+
+            ProductName: row.ProductName?.trim(),
+            ProductID: Number(row.ProductID),
+            VariantGroupID: row.ProductName?.trim(),
+            SKU: row.ProductName?.trim(),
+            CategoryID: row.ProductName?.trim()
+
           }));
 
           console.log('Formatted ProductTableItem[]:', formatted); // 👈 Log transformed data

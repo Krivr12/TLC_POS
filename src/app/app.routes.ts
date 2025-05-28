@@ -52,6 +52,13 @@ export const routes: Routes = [
             return import('./transaction/transaction.component').then(m => m.TransactionComponent)
         },
     },
+    {
+        path: 'add-product',
+        loadComponent: () => {
+            return import('./add-product/add-product.component').then(m => m.AddProductComponent)
+        },
+    }
+
 
 ];
 

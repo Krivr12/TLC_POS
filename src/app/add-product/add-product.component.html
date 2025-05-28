@@ -1,0 +1,32 @@
+<div class="table_name_header">
+    <div class="table_name">
+        General
+    </div>
+
+    <div class="table_buttons">
+
+        <a
+        [routerLink]="['/products']"
+        [ngClass]="{ 'active': activeLink === 'products' }"
+        (click)="ClickLinkHandler('products')"
+        >
+        <div class="add_button">
+            Back 
+        </div>
+        </a>
+    </div>
+</div>
+
+<div class="content_container">
+    <div class="general_container"> 
+        
+    </div>
+
+    <div class="outlet_container"> 
+
+    </div>
+
+    <div class="component_container"> 
+
+    </div>
+</div>
