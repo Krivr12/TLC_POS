@@ -1,32 +1,157 @@
-<div class="table_name_header">
-    <div class="table_name">
+<div class="add_product_header">
+    <div class="header_title">
         General
     </div>
 
     <div class="table_buttons">
-
         <a
         [routerLink]="['/products']"
         [ngClass]="{ 'active': activeLink === 'products' }"
         (click)="ClickLinkHandler('products')"
         >
-        <div class="add_button">
+        <div class="buttons">
             Back 
         </div>
         </a>
     </div>
 </div>
 
+
 <div class="content_container">
+<!-- ------------------------------------------------------------------------------------------- -->
     <div class="general_container"> 
+        <div class = "image_area">
+            <div class = "image_content"></div>
+             <h2>Variant Group ID</h2>
         
-    </div>
+        
 
+        </div>
+
+        
+        <div class = "general_content_container">
+            <h2>Product Name</h2>
+            <input class="input_product_name" [(ngModel)]="product_form.ProductName" type="text" placeholder="enter product name"> 
+
+            <div class="general_content_container_two_column">
+                    <div class="general_content_container_two_column_container">
+                        <h2>Variant Group ID</h2>
+                        <div class="input_icon_divider">
+                            <input class="input_content" [(ngModel)]="product_form.VariantGroupID" type="text" placeholder="enter product variant group ID">  
+                            <img class="input_icon_container" src="assets/icons/edit.png"/>
+                        </div>
+                    </div>
+
+                    <div class="general_content_container_two_column_container">
+                        <h2>SKU</h2>
+                        <div class="input_icon_divider">
+                            <input class="input_content" [(ngModel)]="product_form.SKU"type="text" placeholder="enter product SKU"> 
+                            <img class="input_icon_container" src="assets/icons/edit.png"/>
+                        </div>
+                    </div>
+
+                    <div class="general_content_container_two_column_container">
+                        <h2>Category</h2>
+                        <div class="input_icon_divider">
+                            <input class="input_content" [(ngModel)]="product_form.CategoryID" type="text" placeholder="enter product category"> 
+                            <img class="input_icon_container" src="assets/icons/edit.png"/>
+                        </div>
+                    </div>
+
+                    <div class="general_content_container_two_column_container">
+                        <h2>Price</h2>
+                        <div class="input_icon_divider">
+                            <input class="input_content" type="text" placeholder="enter produc price"> 
+                            <img class="input_icon_container" src="assets/icons/edit.png"/>
+                        </div>
+                    </div>
+
+                    <div class="general_content_container_two_column_container">
+                        <h2>Product Tags</h2>
+                        <div class="input_icon_divider">
+                            <input class="input_content" type="text" placeholder="enter product tags"> 
+                            <img class="input_icon_container" src="assets/icons/edit.png"/>
+                        </div>
+                    </div>
+
+                    <div class="general_content_container_two_column_container">
+                        <h2>Supplier</h2>
+                        <div class="input_icon_divider">
+                            <input class="input_content" type="text" placeholder="enter supplier name"> 
+                            <img class="input_icon_container" src="assets/icons/edit.png"/>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+<!-- ------------------------------------------------------------------------------------------- -->
+    <div class="content_title">Outlet</div>
     <div class="outlet_container"> 
+        <div>
+            <h2>In-store, Dine-in</h2>
+            <div class="input_icon_divider">
+                <input class="input_content" type="text" placeholder="enter supplier name"> 
+                <img class="input_icon_container" src="assets/icons/edit.png"/>
+            </div>
+        </div>
 
+        <div>
+            <h2>In-store, Take-away</h2>
+            <div class="input_icon_divider">
+                <input class="input_content" type="text" placeholder="enter supplier name"> 
+                <img class="input_icon_container" src="assets/icons/edit.png"/>
+            </div>
+        </div>
+
+        <div>
+            <h2>Grabfood</h2>
+            <div class="input_icon_divider">
+                <input class="input_content" type="text" placeholder="enter supplier name"> 
+                <img class="input_icon_container" src="assets/icons/edit.png"/>
+            </div>
+        </div>
+
+        <div>
+            <h2>Grab SulEAT Saver</h2>
+            <div class="input_icon_divider">
+                <input class="input_content" type="text" placeholder="enter supplier name"> 
+                <img class="input_icon_container" src="assets/icons/edit.png"/>
+            </div>
+        </div>
+
+        <div>
+            <h2>FoodPanda</h2>
+            <div class="input_icon_divider">
+                <input class="input_content" type="text" placeholder="enter supplier name"> 
+                <img class="input_icon_container" src="assets/icons/edit.png"/>
+            </div>
+        </div>
+
+            
+        
+        <div>
+            <div class="input_icon_divider">
+                <div class="add_outlet_button">Add New Outlet</div>
+            </div>
+        </div>
+    </div>
+<!-- ------------------------------------------------------------------------------------------- -->
+    <div class="content_title">Component</div>
+    <div class="component_container"> 
+        <div class="component_table_area">
+            <app-component-table></app-component-table>
+        </div>
     </div>
 
-    <div class="component_container"> 
-
+    <div class="add_product">
+        <a
+            [routerLink]="['/products']"
+            [ngClass]="{ 'active': activeLink === 'products' }"
+            (click)="ClickLinkHandler('products')"
+            >
+            <div class="buttons">
+                Add Product 
+            </div>
+        </a>
     </div>
 </div>

@@ -1,133 +1,12 @@
-// import { DataSource } from '@angular/cdk/collections';
-// import { MatPaginator } from '@angular/material/paginator';
-// import { MatSort } from '@angular/material/sort';
-// import { map } from 'rxjs/operators';
-// import { Observable, of as observableOf, merge } from 'rxjs';
-
-// // TODO: Replace this with your own data model type
-// export interface ProductTableItem {
-//   name: string;
-//   id: number;
-// }
-
-// // TODO: replace this with real data from your application
-// const EXAMPLE_DATA: ProductTableItem[] = [
-//   {id: 1, name: 'Hydrogen'},
-//   {id: 2, name: 'Helium'},
-//   {id: 3, name: 'Lithium'},
-//   {id: 4, name: 'Beryllium'},
-//   {id: 5, name: 'Boron'},
-//   {id: 6, name: 'Carbon'},
-//   {id: 7, name: 'Nitrogen'},
-//   {id: 8, name: 'Oxygen'},
-//   {id: 9, name: 'Fluorine'},
-//   {id: 10, name: 'Neon'},
-//   {id: 11, name: 'Sodium'},
-//   {id: 12, name: 'Magnesium'},
-//   {id: 13, name: 'Aluminum'},
-//   {id: 14, name: 'Silicon'},
-//   {id: 15, name: 'Phosphorus'},
-//   {id: 16, name: 'Sulfur'},
-//   {id: 17, name: 'Chlorine'},
-//   {id: 18, name: 'Argon'},
-//   {id: 19, name: 'Potassium'},
-//   {id: 20, name: 'Calcium'},
-// ];
-
-// /**
-//  * Data source for the ProductTable view. This class should
-//  * encapsulate all logic for fetching and manipulating the displayed data
-//  * (including sorting, pagination, and filtering).
-//  */
-// export class ProductTableDataSource extends DataSource<ProductTableItem> {
-//   data: ProductTableItem[] = EXAMPLE_DATA;
-//   paginator: MatPaginator | undefined;
-//   sort: MatSort | undefined;
-
-//   constructor() {
-//     super();
-//   }
-
-//   /**
-//    * Connect this data source to the table. The table will only update when
-//    * the returned stream emits new items.
-//    * @returns A stream of the items to be rendered.
-//    */
-//   connect(): Observable<ProductTableItem[]> {
-//     if (this.paginator && this.sort) {
-//       // Combine everything that affects the rendered data into one update
-//       // stream for the data-table to consume.
-//       return merge(observableOf(this.data), this.paginator.page, this.sort.sortChange)
-//         .pipe(map(() => {
-//           return this.getPagedData(this.getSortedData([...this.data ]));
-//         }));
-//     } else {
-//       throw Error('Please set the paginator and sort on the data source before connecting.');
-//     }
-//   }
-
-//   /**
-//    *  Called when the table is being destroyed. Use this function, to clean up
-//    * any open connections or free any held resources that were set up during connect.
-//    */
-//   disconnect(): void {}
-
-//   /**
-//    * Paginate the data (client-side). If you're using server-side pagination,
-//    * this would be replaced by requesting the appropriate data from the server.
-//    */
-//   private getPagedData(data: ProductTableItem[]): ProductTableItem[] {
-//     if (this.paginator) {
-//       const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-//       return data.splice(startIndex, this.paginator.pageSize);
-//     } else {
-//       return data;
-//     }
-//   }
-
-//   /**
-//    * Sort the data (client-side). If you're using server-side sorting,
-//    * this would be replaced by requesting the appropriate data from the server.
-//    */
-//   private getSortedData(data: ProductTableItem[]): ProductTableItem[] {
-//     if (!this.sort || !this.sort.active || this.sort.direction === '') {
-//       return data;
-//     }
-
-//     return data.sort((a, b) => {
-//       const isAsc = this.sort?.direction === 'asc';
-//       switch (this.sort?.active) {
-//         case 'name': return compare(a.name, b.name, isAsc);
-//         case 'id': return compare(+a.id, +b.id, isAsc);
-//         default: return 0;
-//       }
-//     });
-//   }
-// }
-
-// /** Simple sort comparator for example ID/Name columns (for client-side sorting). */
-// function compare(a: string | number, b: string | number, isAsc: boolean): number {
-//   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-// }
-
-
-
-
-
-
-
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { map, mergeMap } from 'rxjs/operators';
-import { Observable, merge, of } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { Observable, merge, BehaviorSubject } from 'rxjs';
 import { ProductDataService } from './product-data.service';
 
 // Define the model
 export interface ProductTableItem {
-  // name: string;
-  // id: number;
-
   ProductName: string;
   ProductID: number;
   VariantGroupID: string;
@@ -136,72 +15,139 @@ export interface ProductTableItem {
 }
 
 export class ProductTableDataSource extends DataSource<ProductTableItem> {
-  data: ProductTableItem[] = [];
+  private _data = new BehaviorSubject<ProductTableItem[]>([]);
+  private _dataValue: ProductTableItem[] = [];
+  private _initialDataLoaded = false;
+  private _pendingProducts: ProductTableItem[] = [];
+  
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
 
   constructor(private productDataService: ProductDataService) {
     super();
+    // Load initial data from service
+    this.loadInitialData();
+  }
+
+  get data(): ProductTableItem[] {
+    return this._dataValue;
+  }
+
+  private loadInitialData(): void {
+    this.productDataService.getProducts().subscribe(data => {
+      console.log('Initial product data fetched:', data);
+      this._dataValue = [...data];
+      
+      // Add any pending products that were added before initial data loaded
+      if (this._pendingProducts.length > 0) {
+        console.log('Adding pending products:', this._pendingProducts);
+        this._dataValue = [...this._dataValue, ...this._pendingProducts];
+        this._pendingProducts = [];
+      }
+      
+      this._initialDataLoaded = true;
+      this._data.next(this._dataValue);
+      console.log('Final data after loading:', this._dataValue);
+    });
+  }
+
+  // Method to add a new product to the existing data
+  addProduct(product: ProductTableItem): void {
+    if (!this._initialDataLoaded) {
+      // If initial data hasn't loaded yet, queue the product
+      console.log('Initial data not loaded yet, queueing product:', product);
+      this._pendingProducts.push(product);
+      return;
+    }
+    
+    this._dataValue = [...this._dataValue, product];
+    this._data.next(this._dataValue);
+    console.log('Product added to loaded data. Current data:', this._dataValue);
+  }
+
+  // Method to add multiple products
+  addProducts(products: ProductTableItem[]): void {
+    if (!this._initialDataLoaded) {
+      console.log('Initial data not loaded yet, queueing products:', products);
+      this._pendingProducts.push(...products);
+      return;
+    }
+    
+    this._dataValue = [...this._dataValue, ...products];
+    this._data.next(this._dataValue);
+    console.log('Products added. Current data:', this._dataValue);
+  }
+
+  // Method to remove a product
+  removeProduct(productId: number): void {
+    this._dataValue = this._dataValue.filter(product => product.ProductID !== productId);
+    this._data.next(this._dataValue);
+  }
+
+  // Method to update the entire dataset
+  updateData(data: ProductTableItem[]): void {
+    this._dataValue = data;
+    this._data.next(this._dataValue);
+    this._initialDataLoaded = true;
+  }
+
+  // Method to check if initial data is loaded
+  isInitialDataLoaded(): boolean {
+    return this._initialDataLoaded;
   }
 
   connect(): Observable<ProductTableItem[]> {
-  return this.productDataService.getProducts().pipe(
-    mergeMap(data => {
-      console.log('Product data fetched:', data); // Log the fetched data
-      this.data = data;
+    // Create array of observables that should trigger table updates
+    const dataMutations: Observable<unknown>[] = [this._data.asObservable()];
 
-      if (this.paginator && this.sort) {
-        return merge(of(this.data), this.paginator.page, this.sort.sortChange).pipe(
-          map(() => {
-            const sortedPagedData = this.getPagedData(this.getSortedData([...this.data]));
-            console.log('Sorted & paged data:', sortedPagedData); // Log after sorting and paging
-            return sortedPagedData;
-          })
-        );
-      } else {
-        const sortedData = this.getSortedData(this.data);
-        console.log('Sorted data without paginator or sort:', sortedData); // Log fallback
-        return of(sortedData);
-      }
-    })
-  );
-}
+    if (this.paginator) {
+      dataMutations.push(this.paginator.page.pipe(startWith(null)));
+    }
+    if (this.sort) {
+      dataMutations.push(this.sort.sortChange.pipe(startWith(null)));
+    }
 
+    return merge(...dataMutations).pipe(
+      map(() => {
+        const sortedData = this.getSortedData([...this._dataValue]);
+        const pagedData = this.getPagedData(sortedData);
+        console.log('Rendering data:', pagedData.length, 'items');
+        return pagedData;
+      })
+    );
+  }
 
-  disconnect(): void {}
+  disconnect(): void {
+    this._data.complete();
+  }
 
   private getPagedData(data: ProductTableItem[]): ProductTableItem[] {
-  if (this.paginator) {
-    const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-    return data.slice(startIndex, startIndex + this.paginator.pageSize);
-  }
-  return data;
-}
-
-private getSortedData(data: ProductTableItem[]): ProductTableItem[] {
-  if (!this.sort?.active || !this.sort?.direction) {
+    if (this.paginator) {
+      const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+      return data.slice(startIndex, startIndex + this.paginator.pageSize);
+    }
     return data;
   }
 
-  const isAsc = this.sort.direction === 'asc'; // ✅ boolean
-  return data.sort((a, b) => {
-    switch (this.sort!.active) {
-      // case 'name': return compare(a.name, b.name, isAsc);
-      // case 'id': return compare(+a.id, +b.id, isAsc);
-
-      case 'ProductName': return compare(a.ProductName, b.ProductName, isAsc);
-      case 'ProductID': return compare(+a.ProductID, +b.ProductID, isAsc);
-      case 'VariantGroupID': return compare(a.VariantGroupID, b.VariantGroupID, isAsc);
-      case 'SKU': return compare(a.SKU, b.SKU, isAsc);
-      case 'CategoryID': return compare(a.CategoryID, b.CategoryID, isAsc);
-      default: return 0;
+  private getSortedData(data: ProductTableItem[]): ProductTableItem[] {
+    if (!this.sort?.active || !this.sort?.direction) {
+      return data;
     }
-  });
 
+    const isAsc = this.sort.direction === 'asc';
+    return data.sort((a, b) => {
+      switch (this.sort!.active) {
+        case 'ProductName': return compare(a.ProductName, b.ProductName, isAsc);
+        case 'ProductID': return compare(+a.ProductID, +b.ProductID, isAsc);
+        case 'VariantGroupID': return compare(a.VariantGroupID, b.VariantGroupID, isAsc);
+        case 'SKU': return compare(a.SKU, b.SKU, isAsc);
+        case 'CategoryID': return compare(a.CategoryID, b.CategoryID, isAsc);
+        default: return 0;
+      }
+    });
+  }
+}
 
-
- function compare(a: string | number, b: string | number, isAsc: boolean): number {
+function compare(a: string | number, b: string | number, isAsc: boolean): number {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-}
-}
 }

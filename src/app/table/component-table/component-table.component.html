@@ -1,0 +1,56 @@
+<div class="component-container">
+  <div class="input-container">
+    <input class="input-field" [(ngModel)]="newItemComponent" placeholder="Enter Component">
+    <input class="input-field" [(ngModel)]="newItemDineIn" placeholder="Enter Dine-in" type="number">
+    <input class="input-field" [(ngModel)]="newItemTakeout" placeholder="Enter Takeout" type="number">
+  </div>
+
+  <div class="action-button-container">
+    <button 
+      (click)="addNewItem()" 
+      [disabled]="!newItemComponent || newItemDineIn === null || newItemTakeout === null"
+      class="action-button">
+      Add Item
+    </button>
+
+    <button 
+      (click)="deleteLatestItem()" 
+      [disabled]="dataSource.data.length === 0"
+      class="action-button">
+      Delete Latest
+    </button>
+  </div>
+</div>
+
+<div class="mat-elevation-z2">
+  <table mat-table class="table-area" matSort aria-label="Elements">
+    <!-- Component Column -->
+    <ng-container matColumnDef="component">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Component</th>
+      <td mat-cell *matCellDef="let row">{{row.component}}</td>
+    </ng-container>
+
+    <!-- Dine-in Column -->
+    <ng-container matColumnDef="dineIn">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Dine-in</th>
+      <td mat-cell *matCellDef="let row">{{row.dineIn}}</td>
+    </ng-container>
+
+    <!-- Takeout Column -->
+    <ng-container matColumnDef="takeout">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Takeout</th>
+      <td mat-cell *matCellDef="let row">{{row.takeout}}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  <mat-paginator #paginator
+      [length]="dataSource.data.length"
+      [pageIndex]="0"
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 20]"
+      aria-label="Select page">
+  </mat-paginator>
+  </table>
+</div>
