@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductTableComponent } from "../product-table/product-table.component";
+import { ProductTableComponent } from '../../product-table/product-table.component';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -8,10 +8,10 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [ProductTableComponent, CommonModule, RouterModule],
   templateUrl: './products.component.html',
-  styleUrl: './products.component.scss'
+  styleUrl: './products.component.scss',
 })
 export class ProductsComponent implements OnInit {
-  activeLink: string = 'products';
+  activeLink = 'products';
 
   ngOnInit(): void {
     this.activeLink = localStorage.getItem('activeLink') ?? 'products';

@@ -1,5 +1,5 @@
 import * as Papa from 'papaparse';
-import { ProductTableItem } from '../product-table/product-table-datasource'; // Adjust the path if needed
+import { ProductTableItem } from '../services/product-table-datasource';
 
 export function csvToElementArray(csv: string): Promise<ProductTableItem[]> {
   return new Promise((resolve, reject) => {
@@ -11,7 +11,7 @@ export function csvToElementArray(csv: string): Promise<ProductTableItem[]> {
           const raw = result.data as any[];
           console.log('Raw parsed data:', raw); // 👈 Log raw parsed rows
 
-          const formatted: ProductTableItem[] = raw.map(row => ({
+          const formatted: ProductTableItem[] = raw.map((row) => ({
             // id: Number(row.id),
             // name: row.name?.trim(),
 
@@ -19,8 +19,7 @@ export function csvToElementArray(csv: string): Promise<ProductTableItem[]> {
             ProductID: Number(row.ProductID),
             VariantGroupID: row.ProductName?.trim(),
             SKU: row.ProductName?.trim(),
-            CategoryID: row.ProductName?.trim()
-
+            CategoryID: row.ProductName?.trim(),
           }));
 
           console.log('Formatted ProductTableItem[]:', formatted); // 👈 Log transformed data
@@ -30,7 +29,7 @@ export function csvToElementArray(csv: string): Promise<ProductTableItem[]> {
           reject('CSV mapping error: ' + error);
         }
       },
-      error: (err: any) => reject('CSV parsing error: ' + err)
+      error: (err: any) => reject('CSV parsing error: ' + err),
     });
   });
 }

@@ -1,44 +1,74 @@
 <div class="mat-elevation-z2 products-table table-area">
-  <table mat-table [dataSource]="dataSource" class="table" matSort aria-label="Elements">
-    
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    class="table"
+    matSort
+    aria-label="Elements"
+  >
     <!-- ProductID Column -->
     <ng-container matColumnDef="ProductID">
-      <th mat-header-cell class="header-text" *matHeaderCellDef mat-sort-header>ProductID</th>
-      <td mat-cell class="row-text" *matCellDef="let row">{{row.ProductID}}</td>
+      <th mat-header-cell class="header-text" *matHeaderCellDef mat-sort-header>
+        ProductID
+      </th>
+      <td mat-cell class="row-text" *matCellDef="let row">
+        {{ row.ProductID }}
+      </td>
     </ng-container>
 
     <!-- ProductName Column -->
     <ng-container matColumnDef="ProductName">
-      <th mat-header-cell class="header-text" *matHeaderCellDef mat-sort-header>ProductName</th>
-      <td mat-cell class="row-text" *matCellDef="let row">{{row.ProductName}}</td>
+      <th mat-header-cell class="header-text" *matHeaderCellDef mat-sort-header>
+        ProductName
+      </th>
+      <td mat-cell class="row-text" *matCellDef="let row">
+        {{ row.ProductName }}
+      </td>
     </ng-container>
 
     <!-- VariantGroupID Column -->
     <ng-container matColumnDef="VariantGroupID">
-      <th mat-header-cell class="header-text" *matHeaderCellDef mat-sort-header>VariantGroupID</th>
-      <td mat-cell class="row-text" *matCellDef="let row">{{row.VariantGroupID}}</td>
+      <th mat-header-cell class="header-text" *matHeaderCellDef mat-sort-header>
+        VariantGroupID
+      </th>
+      <td mat-cell class="row-text" *matCellDef="let row">
+        {{ row.VariantGroupID }}
+      </td>
     </ng-container>
 
     <!-- SKU Column -->
     <ng-container matColumnDef="SKU">
-      <th mat-header-cell class="header-text" *matHeaderCellDef mat-sort-header>SKU</th>
-      <td mat-cell class="row-text" *matCellDef="let row">{{row.SKU}}</td>
+      <th mat-header-cell class="header-text" *matHeaderCellDef mat-sort-header>
+        SKU
+      </th>
+      <td mat-cell class="row-text" *matCellDef="let row">{{ row.SKU }}</td>
     </ng-container>
 
     <!-- CategoryID Column -->
     <ng-container matColumnDef="CategoryID">
-      <th mat-header-cell class="header-text" *matHeaderCellDef mat-sort-header>CategoryID</th>
-      <td mat-cell class="row-text" *matCellDef="let row">{{row.CategoryID}}</td>
+      <th mat-header-cell class="header-text" *matHeaderCellDef mat-sort-header>
+        CategoryID
+      </th>
+      <td mat-cell class="row-text" *matCellDef="let row">
+        {{ row.CategoryID }}
+      </td>
     </ng-container>
 
-    <tr mat-header-row class="header-text" *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr
+      mat-header-row
+      class="header-text"
+      *matHeaderRowDef="displayedColumns"
+    ></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
 
-  <mat-paginator class="paginator row-text" #paginator
+  <mat-paginator
+    class="paginator row-text"
+    #paginator
     [pageIndex]="0"
     [pageSize]="10"
     [pageSizeOptions]="[5, 10, 20]"
-    aria-label="Select page">
+    aria-label="Select page"
+  >
   </mat-paginator>
 </div>

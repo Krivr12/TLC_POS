@@ -19,7 +19,7 @@ export class ProductTableDataSource extends DataSource<ProductTableItem> {
   private _dataValue: ProductTableItem[] = [];
   private _initialDataLoaded = false;
   private _pendingProducts: ProductTableItem[] = [];
-  
+
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
 
@@ -34,17 +34,23 @@ export class ProductTableDataSource extends DataSource<ProductTableItem> {
   }
 
   private loadInitialData(): void {
-    this.productDataService.getProducts().subscribe(data => {
-      console.log('Initial product data fetched:', data);
-      this._dataValue = [...data];
-      
+    this.productDataService.getProducts().subscribe((data: any[]) => {
+      // Map backend fields to frontend model
+      const mapped = data.map((item) => ({
+        ProductID: item.id,
+        ProductName: item.name,
+        VariantGroupID: item.variant_group_id,
+        SKU: item.sku,
+        CategoryID: item.category_id,
+      }));
+      this._dataValue = mapped;
+
       // Add any pending products that were added before initial data loaded
       if (this._pendingProducts.length > 0) {
-        console.log('Adding pending products:', this._pendingProducts);
         this._dataValue = [...this._dataValue, ...this._pendingProducts];
         this._pendingProducts = [];
       }
-      
+
       this._initialDataLoaded = true;
       this._data.next(this._dataValue);
       console.log('Final data after loading:', this._dataValue);
@@ -59,7 +65,7 @@ export class ProductTableDataSource extends DataSource<ProductTableItem> {
       this._pendingProducts.push(product);
       return;
     }
-    
+
     this._dataValue = [...this._dataValue, product];
     this._data.next(this._dataValue);
     console.log('Product added to loaded data. Current data:', this._dataValue);
@@ -72,7 +78,7 @@ export class ProductTableDataSource extends DataSource<ProductTableItem> {
       this._pendingProducts.push(...products);
       return;
     }
-    
+
     this._dataValue = [...this._dataValue, ...products];
     this._data.next(this._dataValue);
     console.log('Products added. Current data:', this._dataValue);
@@ -80,7 +86,9 @@ export class ProductTableDataSource extends DataSource<ProductTableItem> {
 
   // Method to remove a product
   removeProduct(productId: number): void {
-    this._dataValue = this._dataValue.filter(product => product.ProductID !== productId);
+    this._dataValue = this._dataValue.filter(
+      (product) => product.ProductID !== productId
+    );
     this._data.next(this._dataValue);
   }
 
@@ -137,17 +145,27 @@ export class ProductTableDataSource extends DataSource<ProductTableItem> {
     const isAsc = this.sort.direction === 'asc';
     return data.sort((a, b) => {
       switch (this.sort!.active) {
-        case 'ProductName': return compare(a.ProductName, b.ProductName, isAsc);
-        case 'ProductID': return compare(+a.ProductID, +b.ProductID, isAsc);
-        case 'VariantGroupID': return compare(a.VariantGroupID, b.VariantGroupID, isAsc);
-        case 'SKU': return compare(a.SKU, b.SKU, isAsc);
-        case 'CategoryID': return compare(a.CategoryID, b.CategoryID, isAsc);
-        default: return 0;
+        case 'ProductName':
+          return compare(a.ProductName, b.ProductName, isAsc);
+        case 'ProductID':
+          return compare(+a.ProductID, +b.ProductID, isAsc);
+        case 'VariantGroupID':
+          return compare(a.VariantGroupID, b.VariantGroupID, isAsc);
+        case 'SKU':
+          return compare(a.SKU, b.SKU, isAsc);
+        case 'CategoryID':
+          return compare(a.CategoryID, b.CategoryID, isAsc);
+        default:
+          return 0;
       }
     });
   }
 }
 
-function compare(a: string | number, b: string | number, isAsc: boolean): number {
+function compare(
+  a: string | number,
+  b: string | number,
+  isAsc: boolean
+): number {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }

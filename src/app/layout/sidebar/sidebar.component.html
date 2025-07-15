@@ -113,25 +113,25 @@
   </a>
 
   <a
-    [routerLink]="['/transaction']"
-    [ngClass]="{ 'active': activeLink === 'transaction' }"
-    (click)="ClickLinkHandler($event, 'transaction')"
+    [routerLink]="['/transactions']"
+    [ngClass]="{ 'active': activeLink === 'transactions' }"
+    (click)="ClickLinkHandler($event, 'transactions')"
   >
     <div class="icon-container">
       <img
-        *ngIf="activeLink === 'transaction'"
-        src="assets/icons/transaction-active.png"
+        *ngIf="activeLink === 'transactions'"
+        src="assets/icons/transactions-active.png"
         alt="Transaction Icon"
         class="sidebar-icon"
       />
       <img
-        *ngIf="activeLink !== 'transaction'"
-        src="assets/icons/transaction.png"
+        *ngIf="activeLink !== 'transactions'"
+        src="assets/icons/transactions.png"
         alt="Transaction Icon"
         class="sidebar-icon"
       />
     </div>
-    Transaction
+    Transactions
   </a>
 
   <a

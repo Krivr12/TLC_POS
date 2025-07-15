@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { SidebarComponent } from "./components/sidebar/sidebar.component";
-import { HeaderComponent } from "./components/header/header.component";
-import {MatTableModule} from '@angular/material/table';
-
+import { SidebarComponent } from './layout/sidebar/sidebar.component';
+import { HeaderComponent } from './layout/header/header.component';
+import { MatTableModule } from '@angular/material/table';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +11,7 @@ import {MatTableModule} from '@angular/material/table';
   template: `
     <div class="app-container">
       <app-sidebar />
-      
+
       <div class="content-area">
         <main>
           <app-header />
@@ -21,28 +20,29 @@ import {MatTableModule} from '@angular/material/table';
       </div>
     </div>
   `,
-  styles: [`
-    .app-container {
-      display: flex;
-      top : 0;
-    }
-    .content-area {
-      flex: 1;
-      margin-left: 320px; /* Should match sidebar width */
-  
-    }
-    @media screen and (max-width: 1500px) {
-      .content-area {
-        margin-left: 80px; /* Should match sidebar width */
+  styles: [
+    `
+      .app-container {
+        display: flex;
+        top: 0;
       }
-    }
-    @media screen and (min-width: 1501px) {
       .content-area {
-        margin-left: 310px; /* Should match sidebar width */
+        flex: 1;
+        margin-left: 320px; /* Should match sidebar width */
       }
-    }  
-    `]
-  })
+      @media screen and (max-width: 1500px) {
+        .content-area {
+          margin-left: 80px; /* Should match sidebar width */
+        }
+      }
+      @media screen and (min-width: 1501px) {
+        .content-area {
+          margin-left: 310px; /* Should match sidebar width */
+        }
+      }
+    `,
+  ],
+})
 export class AppComponent {
   // Your component logic goes here
 }

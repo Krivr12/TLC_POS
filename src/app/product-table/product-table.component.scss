@@ -1,9 +1,9 @@
 .table-area {
   margin: 25px;
   width: 97%;
-  border: 2px solid;           // Outer border
-  border-radius: 20px;              // Rounded corners
-  overflow: hidden;                 // Enforces the border-radius
+  border: 2px solid; // Outer border
+  border-radius: 20px; // Rounded corners
+  overflow: hidden; // Enforces the border-radius
 }
 
 .products-table {
@@ -12,7 +12,7 @@
 
 .table {
   width: 100%;
-  border-collapse: collapse;        // Removes spacing between rows
+  border-collapse: collapse; // Removes spacing between rows
   border-radius: 20px;
   background-color: white;
 }

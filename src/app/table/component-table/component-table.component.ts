@@ -34,7 +34,7 @@ export class ComponentTableComponent implements AfterViewInit {
   displayedColumns = ['component', 'dineIn', 'takeout'];
   
   // Properties for the new input fields
-  newItemComponent: string = '';
+  newItemComponent = '';
   newItemDineIn: number | null = null;
   newItemTakeout: number | null = null;
 

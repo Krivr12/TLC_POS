@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
 })
 export class SidebarComponent implements OnInit {
   // Track the currently active link
-  activeLink: string = 'dashboard'; // Default to 'dashboard'
+  activeLink = 'dashboard'; // Default to 'dashboard'
 
   ngOnInit() {
     // Get active link from localStorage if available

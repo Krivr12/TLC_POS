@@ -1,17 +1,27 @@
-import { AfterViewInit, Component, ViewChild, OnInit, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  OnInit,
+  AfterViewInit,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { MatTableModule, MatTable } from '@angular/material/table';
 import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
 import { MatSortModule, MatSort } from '@angular/material/sort';
-import { ProductTableDataSource, ProductTableItem } from './product-table-datasource';
+import {
+  ProductTableDataSource,
+  ProductTableItem,
+} from '../services/product-table-datasource';
 import { CommonModule } from '@angular/common';
-import { ProductDataService } from './product-data.service';
-import { ProductShareService } from '../utils/product-share.service';
+import { ProductDataService } from '../services/product-data.service';
+import { ProductShareService } from '../services/product-share.service';
 
 @Component({
   selector: 'app-product-table',
   templateUrl: './product-table.component.html',
-  styleUrl: './product-table.component.scss',
-  imports: [MatTableModule, MatPaginatorModule, MatSortModule, CommonModule]
+  styleUrls: ['./product-table.component.scss'],
+  standalone: true,
+  imports: [MatTableModule, MatPaginatorModule, MatSortModule, CommonModule],
 })
 export class ProductTableComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -20,13 +30,19 @@ export class ProductTableComponent implements OnInit, AfterViewInit {
 
   dataSource!: ProductTableDataSource;
 
-  displayedColumns = ['ProductName', 'ProductID', 'VariantGroupID', 'SKU', 'CategoryID'];
- 
+  displayedColumns = [
+    'ProductName',
+    'ProductID',
+    'VariantGroupID',
+    'SKU',
+    'CategoryID',
+  ];
+
   constructor(
     private productDataService: ProductDataService,
     private productShareService: ProductShareService,
     private cdr: ChangeDetectorRef
-  ){}
+  ) {}
 
   ngOnInit(): void {
     // Initialize the data source
@@ -45,7 +61,7 @@ export class ProductTableComponent implements OnInit, AfterViewInit {
       console.log('Received product data:', product);
       // Try to add immediately - the datasource will handle queueing if needed
       this.dataSource.addProduct(product);
-      
+
       // Also try to add after a delay as backup
       setTimeout(() => {
         if (!this.dataSource.isInitialDataLoaded()) {
@@ -90,13 +106,13 @@ export class ProductTableComponent implements OnInit, AfterViewInit {
       ProductID: 9999,
       VariantGroupID: 'DEBUG123',
       SKU: 'DEBUG-SKU',
-      CategoryID: 'DEBUG-CAT'
+      CategoryID: 'DEBUG-CAT',
     };
-    
+
     console.log('Before adding debug product:', this.dataSource.data.length);
     console.log('Initial data loaded:', this.dataSource.isInitialDataLoaded());
     this.dataSource.addProduct(testProduct);
-    
+
     setTimeout(() => {
       console.log('After adding debug product:', this.dataSource.data.length);
       this.updatePaginatorLength();
