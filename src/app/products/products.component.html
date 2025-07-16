@@ -1,0 +1,31 @@
+<div class="table_name_header">
+    <div class="table_name">
+        Products
+    </div>
+
+    <div class="table_buttons">
+        <div class="export_button">
+            Export to CSV
+        </div>
+
+        <a
+        [routerLink]="['/add-product']"
+        [ngClass]="{ 'active': activeLink === 'add-product' }"
+        (click)="ClickLinkHandler('add-product')"
+        >
+        <div class="add_button">
+            Add New Product
+        </div>
+        </a>
+    </div>
+</div>
+
+<div>
+    <app-product-table></app-product-table>
+</div>
+
+
+
+
+
+
