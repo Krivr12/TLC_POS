@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductTableComponent } from '../../product-table/product-table.component';
+import { ProductTableComponent } from '../../components/product-table/product-table.component';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 

@@ -11,10 +11,10 @@ import { MatSortModule, MatSort } from '@angular/material/sort';
 import {
   ProductTableDataSource,
   ProductTableItem,
-} from '../services/product-table-datasource';
+} from '../../services/product-table-datasource';
 import { CommonModule } from '@angular/common';
-import { ProductDataService } from '../services/product-data.service';
-import { ProductShareService } from '../services/product-share.service';
+import { ProductDataService } from '../../services/product-data.service';
+import { ProductShareService } from '../../services/product-share.service';
 
 @Component({
   selector: 'app-product-table',
