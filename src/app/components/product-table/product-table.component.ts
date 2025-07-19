@@ -55,6 +55,13 @@ export class ProductTableComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
 
+    // Update paginator length every time the paginator changes
+    this.paginator.page.subscribe(() => {
+      this.updatePaginatorLength();
+      this.table.renderRows();
+      this.cdr.detectChanges();
+    });
+
     // Check for shared product data and add it to the table
     const product = this.productShareService.getProduct();
     if (product) {

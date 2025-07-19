@@ -53,6 +53,9 @@ export class ProductTableDataSource extends DataSource<ProductTableItem> {
 
       this._initialDataLoaded = true;
       this._data.next(this._dataValue);
+      if (this.paginator) {
+        this.paginator.length = this._dataValue.length;
+      }
       console.log('Final data after loading:', this._dataValue);
     });
   }
@@ -140,7 +143,7 @@ export class ProductTableDataSource extends DataSource<ProductTableItem> {
   private getSortedData(data: ProductTableItem[]): ProductTableItem[] {
     if (!this.sort?.active || !this.sort?.direction) {
       return data;
-    }
+    } 
 
     const isAsc = this.sort.direction === 'asc';
     return data.sort((a, b) => {
