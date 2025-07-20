@@ -21,6 +21,8 @@
     "@angular/platform-browser": "^20.1.2",
     "@angular/platform-browser-dynamic": "^20.1.2",
     "@angular/router": "^20.1.2",
+    "@ng-icons/core": "^32.1.0",
+    "@ng-icons/material-icons": "^32.1.0",
     "@tailwindcss/postcss": "^4.1.11",
     "papaparse": "^5.5.2",
     "rxjs": "~7.8.0",
