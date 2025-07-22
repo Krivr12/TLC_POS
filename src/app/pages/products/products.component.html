@@ -1,31 +1,37 @@
-<div class="table_name_header">
-    <div class="table_name">
-        Products
+<div class="flex flex-col mt-5 mb-5 px-8">
+  <div class="flex flex-row justify-between items-center">
+    <div class="text-4xl font-bold text-black font-poppins pl-8 leading-tight">
+      Products
     </div>
-
-    <div class="table_buttons">
-        <div class="export_button">
-            Export to CSV
-        </div>
-
-        <a
-        [routerLink]="['/add-product']"
-        [ngClass]="{ 'active': activeLink === 'add-product' }"
-        (click)="ClickLinkHandler('add-product')"
+    <div class="flex flex-row items-center space-x-4 pr-6">
+      <app-page-navigator
+        [currentPage]="currentPage"
+        [totalPages]="totalPages"
+        (prev)="prevPage()"
+        (next)="nextPage()"
+      ></app-page-navigator>
+      <div class="flex flex-row items-center space-x-2">
+        <div
+          class="border border-black rounded-full px-5 py-2 text-black font-poppins font-bold text-base cursor-pointer bg-white"
         >
-        <div class="add_button">
-            Add New Product
+          Export to CSV
         </div>
+        <a
+          [routerLink]="['/add-product']"
+          [ngClass]="{ active: activeLink === 'add-product' }"
+          (click)="ClickLinkHandler('add-product')"
+        >
+          <div
+            class="rounded-full px-5 py-2 bg-[#634941] text-white font-poppins font-bold text-base cursor-pointer"
+          >
+            Add New Product
+          </div>
         </a>
+      </div>
     </div>
+  </div>
 </div>
 
-<div>
-    <app-product-table></app-product-table>
+<div class="overflow-x-auto p-8">
+  <app-product-table [pagedProducts]="pagedProducts"></app-product-table>
 </div>
-
-
-
-
-
-

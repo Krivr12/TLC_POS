@@ -1,21 +1,26 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ProductTableComponent } from './product-table.component';
+import { Component, OnInit } from '@angular/core';
+import { ProductTableService, Product } from './product-table.service';
 
-describe('ProductTableComponent', () => {
-  let component: ProductTableComponent;
-  let fixture: ComponentFixture<ProductTableComponent>;
+@Component({
+  selector: 'app-product-table',
+  templateUrl: './product-table.component.html',
+  styleUrls: ['./product-table.component.scss'],
+})
+export class ProductTableComponent implements OnInit {
+  products: Product[] = [];
+  displayedColumns: string[] = [
+    'ProductName',
+    'ProductID',
+    'VariantGroupID',
+    'SKU',
+    'CategoryID',
+  ];
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [ProductTableComponent],
-    }).compileComponents();
+  constructor(private productService: ProductTableService) {}
 
-    fixture = TestBed.createComponent(ProductTableComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should compile', () => {
-    expect(component).toBeTruthy();
-  });
-});
+  ngOnInit(): void {
+    this.productService.getProducts().subscribe((data) => {
+      this.products = data;
+    });
+  }
+}

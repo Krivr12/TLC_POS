@@ -1,0 +1,19 @@
+<div class="flex justify-center items-center mt-4">
+  <button
+    class="px-3 py-1 mx-1 rounded-full bg-gray-200 text-black font-medium disabled:opacity-50"
+    (click)="onPrev()"
+    [disabled]="currentPage === 1"
+    aria-label="Previous page"
+  >
+    <span class="material-icons"> keyboard_arrow_left </span>
+  </button>
+  <span class="mx-2">Page {{ currentPage }} of {{ totalPages }}</span>
+  <button
+    class="px-3 py-1 mx-1 rounded-full bg-gray-200 text-black font-medium disabled:opacity-50"
+    (click)="onNext()"
+    [disabled]="currentPage === totalPages"
+    aria-label="Next page"
+  >
+    <span class="material-icons"> keyboard_arrow_right </span>
+  </button>
+</div>

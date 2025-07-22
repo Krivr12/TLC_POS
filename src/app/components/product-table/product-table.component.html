@@ -1,74 +1,95 @@
-<div class="mat-elevation-z2 products-table table-area">
-  <table
-    mat-table
-    [dataSource]="dataSource"
-    class="table"
-    matSort
-    aria-label="Elements"
-  >
-    <!-- ProductID Column -->
-    <ng-container matColumnDef="ProductID">
-      <th mat-header-cell class="header-text" *matHeaderCellDef mat-sort-header>
-        ProductID
-      </th>
-      <td mat-cell class="row-text" *matCellDef="let row">
-        {{ row.ProductID }}
-      </td>
-    </ng-container>
+<table
+  mat-table
+  [dataSource]="pagedProducts"
+  class="mat-elevation-z8 w-full min-w-full table-fixed rounded-lg shadow-md overflow-hidden"
+  style="--mat-table-background-color: #fff"
+>
+  <ng-container matColumnDef="id">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      class="bg-white px-4 py-2 text-left font-semibold text-black"
+      style="width: 8%"
+    >
+      Product ID
+    </th>
+    <td
+      mat-cell
+      *matCellDef="let element"
+      class="bg-white px-4 py-2 border-b text-black"
+    >
+      {{ element.id }}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="name">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      class="bg-white px-4 py-2 text-left font-semibold text-black"
+      style="width: 32%"
+    >
+      Product Name
+    </th>
+    <td
+      mat-cell
+      *matCellDef="let element"
+      class="bg-white px-4 py-2 border-b text-black"
+    >
+      {{ element.name }}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="variant_group_id">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      class="bg-white px-4 py-2 text-left font-semibold text-black"
+      style="width: 20%"
+    >
+      Variant Group ID
+    </th>
+    <td
+      mat-cell
+      *matCellDef="let element"
+      class="bg-white px-4 py-2 border-b text-black"
+    >
+      {{ element.variant_group_id }}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="sku">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      class="bg-white px-4 py-2 text-left font-semibold text-black"
+      style="width: 20%"
+    >
+      SKU
+    </th>
+    <td
+      mat-cell
+      *matCellDef="let element"
+      class="bg-white px-4 py-2 border-b text-black"
+    >
+      {{ element.sku }}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="category_id">
+    <th
+      mat-header-cell
+      *matHeaderCellDef
+      class="bg-white px-4 py-2 text-left font-semibold text-black"
+      style="width: 10%"
+    >
+      Category ID
+    </th>
+    <td
+      mat-cell
+      *matCellDef="let element"
+      class="bg-white px-4 py-2 border-b text-black"
+    >
+      {{ element.category_id }}
+    </td>
+  </ng-container>
 
-    <!-- ProductName Column -->
-    <ng-container matColumnDef="ProductName">
-      <th mat-header-cell class="header-text" *matHeaderCellDef mat-sort-header>
-        ProductName
-      </th>
-      <td mat-cell class="row-text" *matCellDef="let row">
-        {{ row.ProductName }}
-      </td>
-    </ng-container>
-
-    <!-- VariantGroupID Column -->
-    <ng-container matColumnDef="VariantGroupID">
-      <th mat-header-cell class="header-text" *matHeaderCellDef mat-sort-header>
-        VariantGroupID
-      </th>
-      <td mat-cell class="row-text" *matCellDef="let row">
-        {{ row.VariantGroupID }}
-      </td>
-    </ng-container>
-
-    <!-- SKU Column -->
-    <ng-container matColumnDef="SKU">
-      <th mat-header-cell class="header-text" *matHeaderCellDef mat-sort-header>
-        SKU
-      </th>
-      <td mat-cell class="row-text" *matCellDef="let row">{{ row.SKU }}</td>
-    </ng-container>
-
-    <!-- CategoryID Column -->
-    <ng-container matColumnDef="CategoryID">
-      <th mat-header-cell class="header-text" *matHeaderCellDef mat-sort-header>
-        CategoryID
-      </th>
-      <td mat-cell class="row-text" *matCellDef="let row">
-        {{ row.CategoryID }}
-      </td>
-    </ng-container>
-
-    <tr
-      mat-header-row
-      class="header-text"
-      *matHeaderRowDef="displayedColumns"
-    ></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
-
-  <mat-paginator
-    class="paginator row-text"
-    #paginator
-    [pageIndex]="0"
-    [pageSize]="10"
-    [pageSizeOptions]="[5, 10, 20]"
-    aria-label="Select page"
-  >
-  </mat-paginator>
-</div>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns" class=""></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns" class=""></tr>
+</table>

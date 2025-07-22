@@ -1,17 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Product } from '../models/product.model';
+
+export interface Product {
+  id: number;
+  name: string;
+  variant_group_id: string;
+  sku: string;
+  category_id: string;
+}
 
 @Injectable({ providedIn: 'root' })
-export class ProductService {
-  private apiUrl = '/api/products'; // Update with your actual API endpoint
+export class ProductTableService {
+  private apiUrl = 'http://localhost:5000/products/'; // Adjust if needed
 
   constructor(private http: HttpClient) {}
 
   getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(this.apiUrl);
   }
-
-  // Add other CRUD methods as needed
 }
