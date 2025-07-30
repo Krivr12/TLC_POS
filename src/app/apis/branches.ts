@@ -10,7 +10,7 @@ export interface Branch {
 
 @Injectable({ providedIn: 'root' })
 export class BranchApi {
-  private apiUrl = 'http://localhost:5000/branches';
+  private apiUrl = 'http://127.0.0.1:5000/branches/';
 
   constructor(private http: HttpClient) {}
 

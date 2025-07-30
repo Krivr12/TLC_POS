@@ -12,7 +12,7 @@ export interface BranchStockCount {
 
 @Injectable({ providedIn: 'root' })
 export class BranchStockCountApi {
-  private apiUrl = 'http://localhost:5000/branch-stock-count';
+  private apiUrl = 'http://localhost:5000/branchstockcounts/';
 
   constructor(private http: HttpClient) {}
 
