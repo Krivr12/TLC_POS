@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductTableComponent } from '../../components/product-table/product-table.component';
 import { PageNavigatorComponent } from '../../components/page-navigator/page-navigator.component';
-import {
-  ProductTableService,
-  Product,
-} from '../../components/product-table/product-table.service';
+import { ProductTableService } from '../../components/product-table/product-table.service';
+import { Product } from '../../apis/products';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
