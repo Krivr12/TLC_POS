@@ -1,6 +1,6 @@
 import { MatTableModule } from '@angular/material/table';
 import { Component, Input } from '@angular/core';
-import { Product } from '../../apis/products';
+import { Product } from '../../api/products';
 import { ProductTableService } from './product-table.service';
 
 @Component({

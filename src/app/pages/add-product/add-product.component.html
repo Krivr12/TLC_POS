@@ -1,157 +1,193 @@
-<div class="add_product_header">
-    <div class="header_title">
-        General
-    </div>
-
-    <div class="table_buttons">
-        <a
-        [routerLink]="['/products']"
-        [ngClass]="{ 'active': activeLink === 'products' }"
-        (click)="ClickLinkHandler('products')"
-        >
-        <div class="buttons">
-            Back 
-        </div>
-        </a>
-    </div>
+<div class="flex justify-between items-center my-8">
+  <div class="text-3xl font-bold text-left pl-8 font-poppins text-black">
+    Add New Product
+  </div>
+  <div class="flex items-center mr-8">
+    <a
+      [routerLink]="['/products']"
+      [ngClass]="{ active: activeLink === 'products' }"
+      (click)="ClickLinkHandler('products')"
+    >
+      <div
+        class="bg-[#634941] text-white rounded-full px-6 py-2 font-poppins font-bold text-base shadow hover:bg-[#4e392f] transition"
+      >
+        Back
+      </div>
+    </a>
+  </div>
 </div>
 
-
-<div class="content_container">
-<!-- ------------------------------------------------------------------------------------------- -->
-    <div class="general_container"> 
-        <div class = "image_area">
-            <div class = "image_content"></div>
-             <h2>Variant Group ID</h2>
-        
-        
-
-        </div>
-
-        
-        <div class = "general_content_container">
-            <h2>Product Name</h2>
-            <input class="input_product_name" [(ngModel)]="product_form.ProductName" type="text" placeholder="enter product name"> 
-
-            <div class="general_content_container_two_column">
-                    <div class="general_content_container_two_column_container">
-                        <h2>Variant Group ID</h2>
-                        <div class="input_icon_divider">
-                            <input class="input_content" [(ngModel)]="product_form.VariantGroupID" type="text" placeholder="enter product variant group ID">  
-                            <img class="input_icon_container" src="assets/icons/edit.png"/>
-                        </div>
-                    </div>
-
-                    <div class="general_content_container_two_column_container">
-                        <h2>SKU</h2>
-                        <div class="input_icon_divider">
-                            <input class="input_content" [(ngModel)]="product_form.SKU"type="text" placeholder="enter product SKU"> 
-                            <img class="input_icon_container" src="assets/icons/edit.png"/>
-                        </div>
-                    </div>
-
-                    <div class="general_content_container_two_column_container">
-                        <h2>Category</h2>
-                        <div class="input_icon_divider">
-                            <input class="input_content" [(ngModel)]="product_form.CategoryID" type="text" placeholder="enter product category"> 
-                            <img class="input_icon_container" src="assets/icons/edit.png"/>
-                        </div>
-                    </div>
-
-                    <div class="general_content_container_two_column_container">
-                        <h2>Price</h2>
-                        <div class="input_icon_divider">
-                            <input class="input_content" type="text" placeholder="enter produc price"> 
-                            <img class="input_icon_container" src="assets/icons/edit.png"/>
-                        </div>
-                    </div>
-
-                    <div class="general_content_container_two_column_container">
-                        <h2>Product Tags</h2>
-                        <div class="input_icon_divider">
-                            <input class="input_content" type="text" placeholder="enter product tags"> 
-                            <img class="input_icon_container" src="assets/icons/edit.png"/>
-                        </div>
-                    </div>
-
-                    <div class="general_content_container_two_column_container">
-                        <h2>Supplier</h2>
-                        <div class="input_icon_divider">
-                            <input class="input_content" type="text" placeholder="enter supplier name"> 
-                            <img class="input_icon_container" src="assets/icons/edit.png"/>
-                        </div>
-                    </div>
-                </div>
-        </div>
+<div class="pt-2 px-4 md:px-12">
+  <div class="flex flex-col md:flex-row gap-8">
+    <div
+      class="md:w-1/3 w-full flex flex-col items-center justify-center bg-white rounded-2xl shadow p-6"
+    >
+      <div
+        class="w-full h-48 border border-black rounded-2xl mb-4 flex items-center justify-center bg-gray-50"
+      >
+        <input
+          type="file"
+          (change)="onImageSelected($event)"
+          class="hidden"
+          #fileInput
+        />
+        <button
+          type="button"
+          class="bg-[#634941] text-white px-4 py-2 rounded-full font-poppins font-bold text-base shadow hover:bg-[#4e392f] transition"
+          (click)="fileInput.click()"
+        >
+          Upload Image
+        </button>
+        <span class="text-gray-400 ml-4" *ngIf="selectedImageName">{{
+          selectedImageName
+        }}</span>
+      </div>
+      <h2 class="text-base font-medium font-dmsans mt-2 mb-1">Product Image</h2>
     </div>
-<!-- ------------------------------------------------------------------------------------------- -->
-    <div class="content_title">Outlet</div>
-    <div class="outlet_container"> 
-        <div>
-            <h2>In-store, Dine-in</h2>
-            <div class="input_icon_divider">
-                <input class="input_content" type="text" placeholder="enter supplier name"> 
-                <img class="input_icon_container" src="assets/icons/edit.png"/>
-            </div>
-        </div>
-
-        <div>
-            <h2>In-store, Take-away</h2>
-            <div class="input_icon_divider">
-                <input class="input_content" type="text" placeholder="enter supplier name"> 
-                <img class="input_icon_container" src="assets/icons/edit.png"/>
-            </div>
-        </div>
-
-        <div>
-            <h2>Grabfood</h2>
-            <div class="input_icon_divider">
-                <input class="input_content" type="text" placeholder="enter supplier name"> 
-                <img class="input_icon_container" src="assets/icons/edit.png"/>
-            </div>
-        </div>
-
-        <div>
-            <h2>Grab SulEAT Saver</h2>
-            <div class="input_icon_divider">
-                <input class="input_content" type="text" placeholder="enter supplier name"> 
-                <img class="input_icon_container" src="assets/icons/edit.png"/>
-            </div>
-        </div>
-
-        <div>
-            <h2>FoodPanda</h2>
-            <div class="input_icon_divider">
-                <input class="input_content" type="text" placeholder="enter supplier name"> 
-                <img class="input_icon_container" src="assets/icons/edit.png"/>
-            </div>
-        </div>
-
-            
-        
-        <div>
-            <div class="input_icon_divider">
-                <div class="add_outlet_button">Add New Outlet</div>
-            </div>
-        </div>
-    </div>
-<!-- ------------------------------------------------------------------------------------------- -->
-    <div class="content_title">Component</div>
-    <div class="component_container"> 
-        <div class="component_table_area">
-            <app-component-table></app-component-table>
-        </div>
-    </div>
-
-    <div class="add_product">
-        <a
-            [routerLink]="['/products']"
-            [ngClass]="{ 'active': activeLink === 'products' }"
-            (click)="ClickLinkHandler('products')"
+    <div class="md:w-2/3 w-full bg-white rounded-2xl shadow p-6">
+      <h2 class="text-base font-medium font-dmsans mb-2">Product Name</h2>
+      <input
+        class="border border-black rounded-lg h-12 w-full mb-4 px-3 focus:outline-none focus:ring-2 focus:ring-[#634941]"
+        [(ngModel)]="product_form['ProductName']"
+        type="text"
+        placeholder="Enter Product Name"
+      />
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="w-full">
+          <h2 class="text-base font-medium font-dmsans mb-2">
+            Variant Group ID
+          </h2>
+          <div class="flex items-center">
+            <input
+              class="border border-black rounded-lg h-12 w-full px-3 focus:outline-none focus:ring-2 focus:ring-[#634941]"
+              [(ngModel)]="product_form['VariantGroupID']"
+              type="text"
+              placeholder="Enter Product Variant Group ID"
+            />
+            <span
+              class="material-symbols-outlined w-9 h-9 pl-2 flex items-center justify-center"
+              >edit</span
             >
-            <div class="buttons">
-                Add Product 
+          </div>
+        </div>
+        <div class="w-full">
+          <h2 class="text-base font-medium font-dmsans mb-2">SKU</h2>
+          <div class="flex items-center">
+            <input
+              class="border border-black rounded-lg h-12 w-full px-3 focus:outline-none focus:ring-2 focus:ring-[#634941]"
+              [(ngModel)]="product_form['SKU']"
+              type="text"
+              placeholder="Enter Product SKU"
+            />
+            <span
+              class="material-symbols-outlined w-9 h-9 pl-2 flex items-center justify-center"
+              >edit</span
+            >
+          </div>
+        </div>
+        <div class="w-full">
+          <h2 class="text-base font-medium font-dmsans mb-2">Category</h2>
+          <div class="flex items-center">
+            <select
+              class="border border-black rounded-lg h-12 w-full px-3 focus:outline-none focus:ring-2 focus:ring-[#634941]"
+              [(ngModel)]="selectedCategory"
+            >
+              <option [ngValue]="null">Select category</option>
+              <option *ngFor="let cat of categories" [ngValue]="cat">
+                {{ cat.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="w-full">
+          <h2 class="text-base font-medium font-dmsans mb-2">Supplier</h2>
+          <div class="flex items-center">
+            <select
+              class="border border-black rounded-lg h-12 w-full px-3 focus:outline-none focus:ring-2 focus:ring-[#634941]"
+              [(ngModel)]="selectedSupplier"
+            >
+              <option [ngValue]="null">Select supplier</option>
+              <option *ngFor="let sup of suppliers" [ngValue]="sup">
+                {{ sup.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="w-full">
+          <h2 class="text-base font-medium font-dmsans mb-2">Tags</h2>
+          <div class="flex items-center flex-wrap gap-2">
+            <div
+              *ngFor="let tag of tags"
+              (click)="toggleTag(tag)"
+              [class.bg-[#634941]]="selectedTags.includes(tag)"
+              class="px-3 py-1 rounded-full border border-black cursor-pointer select-none"
+              [class.text-white]="selectedTags.includes(tag)"
+              [class.text-black]="!selectedTags.includes(tag)"
+            >
+              {{ tag.name }}
             </div>
-        </a>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+
+  <!-- 2. Outlet Section for Prices -->
+  <div class="text-2xl font-bold mt-10 mb-4 text-left font-poppins text-black">
+    Outlet
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <ng-container *ngFor="let outlet of outlets">
+      <div class="bg-white rounded-2xl shadow p-6 flex flex-col justify-center">
+        <div class="mb-2">
+          <input
+            class="border border-black rounded-lg h-12 w-full px-3 focus:outline-none focus:ring-2 focus:ring-[#634941] mb-2"
+            [(ngModel)]="outlet.name"
+            type="text"
+            placeholder="Enter Outlet Name"
+          />
+        </div>
+        <div class="flex items-center">
+          <input
+            class="border border-black rounded-lg h-12 w-full px-3 focus:outline-none focus:ring-2 focus:ring-[#634941]"
+            [(ngModel)]="outlet.price"
+            type="number"
+            placeholder="Enter {{ outlet.name || 'Outlet' }} Price"
+          />
+          <span
+            class="material-symbols-outlined w-9 h-9 pl-2 flex items-center justify-center"
+            >edit</span
+          >
+        </div>
+      </div>
+    </ng-container>
+    <div class="flex items-center mt-10">
+      <div
+        class="bg-[#634941] rounded-lg h-12 w-full text-white text-base font-bold font-dmsans flex justify-center items-center cursor-pointer shadow"
+        (click)="addOutlet()"
+      >
+        Add New Outlet
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Components Section -->
+  <div class="text-2xl font-bold mt-10 mb-4 text-left font-poppins text-black">
+    Component
+  </div>
+  <div class="w-full flex justify-between">
+    <div class="w-full pb-6 bg-white rounded-2xl shadow p-6">
+      <app-component-table></app-component-table>
+    </div>
+  </div>
+
+  <div class="flex justify-end mt-8">
+    <button
+      type="button"
+      (click)="createProduct()"
+      class="bg-[#634941] text-white rounded-full px-6 py-2 font-poppins font-bold text-base cursor-pointer shadow hover:bg-[#4e392f] transition"
+    >
+      Add Product
+    </button>
+  </div>
 </div>

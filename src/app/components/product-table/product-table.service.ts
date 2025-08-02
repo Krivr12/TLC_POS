@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ProductApi } from '../../apis/products';
+import { ProductApi } from '../../api/products';
 import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })

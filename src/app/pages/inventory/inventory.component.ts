@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { BranchSelectorComponent } from '../../components/branch-selector/branch-selector.component';
 import { InventoryTableComponent } from '../../components/inventory-table/inventory-table.component';
-import { BranchApi, Branch } from '../../apis/branches';
-import { InventoryItemApi, InventoryItem } from '../../apis/inventory-items';
-import { BranchStockCountApi } from '../../apis/branch-stock-count';
+import { BranchApi, Branch } from '../../api/branches';
+import { InventoryItemApi, InventoryItem } from '../../api/inventory-items';
+import { BranchStockCountApi } from '../../api/branch-stock-count';
 import { forkJoin } from 'rxjs';
 
 interface BranchStockCountTableRow {

@@ -1,3 +1,19 @@
+export interface ProductOutletPrice {
+  product_id: number;
+  name: string;
+  price: number;
+}
+
+@Injectable({ providedIn: 'root' })
+export class ProductOutletPriceApi {
+  private apiUrl = 'http://localhost:5000/outlets';
+
+  constructor(private http: HttpClient) {}
+
+  create(data: ProductOutletPrice): Observable<any> {
+    return this.http.post(this.apiUrl, data);
+  }
+}
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
