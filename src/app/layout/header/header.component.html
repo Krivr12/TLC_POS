@@ -1,26 +1,29 @@
-<div class = 'header'>
-    <div class = "header-leftside-container">
-        <div class = "search-container">
-            <div class = "search-icon-container">
-                <img class = "search-icon" src="assets/icons/search.png" alt="search icon" />
-            </div>
-            <input type="text" placeholder="Search" class="search-bar" />      
-        </div>
+<div
+  class="w-full h-16 flex items-center justify-between px-6 sticky top-0 bg-white z-10"
+>
+  <!-- Search Bar -->
+  <div
+    class="flex items-center w-96 h-10 rounded-full border border-black px-3"
+  >
+    <span class="material-symbols-outlined text-2xl">search</span>
+    <input
+      type="text"
+      placeholder="Search"
+      class="ml-2 text-lg border-none outline-none flex-1 bg-transparent"
+    />
+  </div>
+
+  <!-- Notification & Profile -->
+  <div class="flex items-center gap-4 pr-4">
+    <div
+      class="w-12 h-12 flex items-center justify-center rounded-full border border-black"
+    >
+      <span class="material-symbols-outlined text-2xl">notifications</span>
     </div>
-    
-    <div class = "header-rightside-container">
-        <div class = "notification-container">
-            <img class = "notification-icon" src="assets/icons/notification.png" alt="notification icon" />
-        </div>
-
-        <div class = "user-profile-container">
-            <div class = "user-profile">
-                <img class = "user-profile-icon-container" src="assets/icons/dc.jpg" alt="user profile icon" />
-                    <!-- <img class = "user-profile-icon" src="assets/icons/user.png" alt="user profile icon" />
-                </div> -->
-            </div>
-        </div>
+    <div
+      class="w-12 h-12 rounded-full border border-black flex items-center justify-center"
+    >
+      <span class="material-symbols-outlined text-2xl">person</span>
     </div>
-
-
+  </div>
 </div>

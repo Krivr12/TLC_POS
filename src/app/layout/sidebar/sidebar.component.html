@@ -3,14 +3,12 @@
 >
   <div class="p-8 flex flex-col items-center justify-center">
     <img src="assets/tlc-logo-white.png" alt="" class="" />
-    <h1
-      class="text-white font-bold text-3xl leading-tight text-left"
-    >
+    <h1 class="text-white font-bold text-3xl leading-tight text-left">
       Back Office
     </h1>
   </div>
 
-  <ng-container *ngFor="let link of sidebarLinks" class="">
+  <ng-container *ngFor="let link of sidebarLinks; let i = index" class="">
     <a
       [routerLink]="[link.route]"
       [ngClass]="{
@@ -21,18 +19,15 @@
       (click)="ClickLinkHandler($event, link.key)"
     >
       <div class="w-9 h-9 flex pr-2 items-center justify-center">
-        <img
-          *ngIf="activeLink === link.key"
-          [src]="link.activeIcon"
-          [alt]="link.label + ' Icon'"
-          class="w-7 h-7"
-        />
-        <img
-          *ngIf="activeLink !== link.key"
-          [src]="link.icon"
-          [alt]="link.label + ' Icon'"
-          class="w-7 h-7"
-        />
+        <span
+          class="material-symbols-outlined text-[32px]"
+          [ngClass]="{
+            'text-white': activeLink === link.key,
+            'text-[#6D4C41]': activeLink !== link.key
+          }"
+        >
+          {{ getMaterialIconName(i) }}
+        </span>
       </div>
       <span class="ml-2">{{ link.label }}</span>
     </a>

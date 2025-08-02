@@ -9,40 +9,15 @@ import { MatTableModule } from '@angular/material/table';
   standalone: true,
   imports: [RouterOutlet, SidebarComponent, HeaderComponent, MatTableModule],
   template: `
-    <div class="app-container">
+    <div class="flex">
       <app-sidebar />
-
-      <div class="content-area">
-        <main>
-          <app-header />
-          <router-outlet />
-        </main>
+      <div class="flex-1 ml-[320px]">
+        <app-header />
+        <router-outlet />
       </div>
     </div>
   `,
-  styles: [
-    `
-      .app-container {
-        display: flex;
-        top: 0;
-      }
-      .content-area {
-        flex: 1;
-        margin-left: 320px; /* Should match sidebar width */
-      }
-      @media screen and (max-width: 1500px) {
-        .content-area {
-          margin-left: 80px; /* Should match sidebar width */
-        }
-      }
-      @media screen and (min-width: 1501px) {
-        .content-area {
-          margin-left: 310px; /* Should match sidebar width */
-        }
-      }
-    `,
-  ],
+  styles: [],
 })
 export class AppComponent {
-  // Your component logic goes here
 }
