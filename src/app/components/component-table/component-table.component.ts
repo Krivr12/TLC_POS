@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ViewChild,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatTable, MatTableModule } from '@angular/material/table';
@@ -7,7 +14,11 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { ComponentTableDataSource, ComponentTableItem } from './component-table-datasource';
+import { MatTableDataSource } from '@angular/material/table';
+export interface ComponentTableItem {
+  component: string;
+  outletPrices: { [outletName: string]: number | null };
+}
 
 @Component({
   selector: 'app-component-table',
@@ -20,7 +31,7 @@ import { ComponentTableDataSource, ComponentTableItem } from './component-table-
     MatSortModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
   ],
   templateUrl: './component-table.component.html',
   styleUrls: ['./component-table.component.scss'],
@@ -29,40 +40,41 @@ export class ComponentTableComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<ComponentTableItem>;
-  dataSource = new ComponentTableDataSource();
 
-  displayedColumns = ['component', 'dineIn', 'takeout'];
-  
-  // Properties for the new input fields
-  newItemComponent = '';
-  newItemDineIn: number | null = null;
-  newItemTakeout: number | null = null;
+  @Input() outlets: { name: string; price?: number }[] = [];
+  displayedColumns: string[] = [
+    'component',
+    'Dine-in',
+    'Dine-in-unit',
+    'Take-out',
+    'Take-out-unit',
+  ];
 
-  addNewItem() {
-    if (this.newItemComponent.trim() && 
-        this.newItemDineIn !== null && 
-        this.newItemTakeout !== null) {
+  dataSource = new MatTableDataSource<ComponentTableItem>([]);
+
+  newItemComponent: string = '';
+
+  addNewItem(): void {
+    if (this.newItemComponent.trim()) {
+      const outletPrices: { [outletName: string]: number | null } = {};
+      this.outlets.forEach((outlet) => {
+        outletPrices[outlet.name] = null;
+      });
       const newItem: ComponentTableItem = {
         component: this.newItemComponent.trim(),
-        dineIn: this.newItemDineIn,
-        takeout: this.newItemTakeout
+        outletPrices,
       };
-      this.dataSource.add(newItem);
-      
-      // Clear the input fields after adding
+      this.dataSource.data = [...this.dataSource.data, newItem];
       this.newItemComponent = '';
-      this.newItemDineIn = null;
-      this.newItemTakeout = null;
     }
   }
 
-  deleteLatestItem() {
-    this.dataSource.removeLast();
+  deleteLatestItem(): void {
+    this.dataSource.data = this.dataSource.data.slice(0, -1);
   }
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.table.dataSource = this.dataSource;
   }
 }

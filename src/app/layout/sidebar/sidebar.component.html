@@ -13,7 +13,7 @@
       [routerLink]="[link.route]"
       [ngClass]="{
         'bg-[#6D4C41] text-white': activeLink === link.key,
-        'hover:bg-black/5': activeLink !== link.key
+        'hover:bg-black/5 text-[#6D4C41]': activeLink !== link.key
       }"
       class="flex items-center px-8 py-4 m-2 rounded-full transition-colors duration-150"
       (click)="ClickLinkHandler($event, link.key)"
@@ -29,7 +29,11 @@
           {{ getMaterialIconName(i) }}
         </span>
       </div>
-      <span class="ml-2">{{ link.label }}</span>
+      <span
+        class="ml-2 font-semibold"
+        [ngClass]="activeLink !== link.key ? 'text-[#6D4C41]' : 'text-white'"
+        >{{ link.label }}</span
+      >
     </a>
   </ng-container>
 </div>

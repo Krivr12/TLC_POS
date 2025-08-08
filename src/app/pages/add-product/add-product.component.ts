@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { ComponentTableComponent } from '../../table/component-table/component-table.component';
+import { ComponentTableComponent } from '../../components/component-table/component-table.component';
 import { FormsModule } from '@angular/forms';
 import { ProductShareService } from '../../services/product-share.service';
 import { ProductApi, Product } from '../../api/products';
@@ -105,7 +105,6 @@ export class AddProductComponent implements OnInit {
       // Add more fields as needed
     };
 
-    // Optionally handle image upload here (not implemented)
 
     // Create product
     this.productApi.create(payload).subscribe((product) => {
