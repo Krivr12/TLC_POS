@@ -55,13 +55,7 @@ export class ComponentTableComponent implements AfterViewInit, OnInit {
   @ViewChild(MatTable) table!: MatTable<ComponentTableItem>;
 
   @Input() outlets: { name: string; price?: number }[] = [];
-  displayedColumns: string[] = [
-    'component',
-    'Dine-in',
-    'Dine-in-unit',
-    'Take-out',
-    'Take-out-unit',
-  ];
+  displayedColumns: string[] = ['component', 'quantity', 'Dine-in-unit'];
   dataSource = new MatTableDataSource<ComponentTableItem>([]);
   selectedInventoryItemId: string = '';
 
@@ -91,10 +85,8 @@ export class ComponentTableComponent implements AfterViewInit, OnInit {
       (item) => item.item_id === row.item_id
     );
     if (selected) {
-      row.outletPrices['Dine-in'] = selected.cost;
+      row.quantity = 1;
       row['Dine-inUnit'] = selected.unit;
-      row.outletPrices['Take-out'] = selected.cost;
-      row['Take-outUnit'] = selected.unit;
     }
   }
 
@@ -104,17 +96,12 @@ export class ComponentTableComponent implements AfterViewInit, OnInit {
         (item) => item.item_id === this.selectedInventoryItemId
       );
       if (selectedItem) {
-        const outletPrices: { [outletName: string]: number | null } = {};
-        this.outlets.forEach((outlet) => {
-          outletPrices[outlet.name] = selectedItem.cost;
-        });
-        const newItem: ComponentTableItem = {
+        const newItem: any = {
           component: selectedItem.name,
-          outletPrices,
+          quantity: 1,
           ['Dine-inUnit']: selectedItem.unit,
-          ['Take-outUnit']: selectedItem.unit,
           item_id: selectedItem.item_id,
-        } as any;
+        };
         this.dataSource.data = [...this.dataSource.data, newItem];
         this.selectedInventoryItemId = '';
       }

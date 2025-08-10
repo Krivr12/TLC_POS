@@ -50,17 +50,18 @@
       </td>
     </ng-container>
 
-    <!-- Dine-in Column -->
-    <ng-container matColumnDef="Dine-in">
+    <!-- Quantity Column -->
+    <ng-container matColumnDef="quantity">
       <th mat-header-cell *matHeaderCellDef class="bg-white text-black">
-        Dine-in
+        Quantity
       </th>
       <td mat-cell *matCellDef="let row" class="bg-white text-black">
         <input
           type="number"
+          min="1"
           class="border border-black rounded-lg h-10 w-full px-2 focus:outline-none focus:ring-2 focus:ring-[#634941]"
-          [(ngModel)]="row.outletPrices['Dine-in']"
-          placeholder="Enter Cost"
+          [(ngModel)]="row.quantity"
+          placeholder="Enter Quantity"
         />
       </td>
     </ng-container>
@@ -75,36 +76,6 @@
           type="text"
           class="border border-black rounded-lg h-10 w-full px-2 focus:outline-none focus:ring-2 focus:ring-[#634941]"
           [(ngModel)]="row['Dine-inUnit']"
-          placeholder="Enter Unit"
-        />
-      </td>
-    </ng-container>
-
-    <!-- Take-out Column -->
-    <ng-container matColumnDef="Take-out">
-      <th mat-header-cell *matHeaderCellDef class="bg-white text-black">
-        Take-out
-      </th>
-      <td mat-cell *matCellDef="let row" class="bg-white text-black">
-        <input
-          type="number"
-          class="border border-black rounded-lg h-10 w-full px-2 focus:outline-none focus:ring-2 focus:ring-[#634941]"
-          [(ngModel)]="row.outletPrices['Take-out']"
-          placeholder="Enter Cost"
-        />
-      </td>
-    </ng-container>
-
-    <!-- Take-out Unit Column -->
-    <ng-container matColumnDef="Take-out-unit">
-      <th mat-header-cell *matHeaderCellDef class="bg-white text-black">
-        Unit
-      </th>
-      <td mat-cell *matCellDef="let row" class="bg-white text-black">
-        <input
-          type="text"
-          class="border border-black rounded-lg h-10 w-full px-2 focus:outline-none focus:ring-2 focus:ring-[#634941]"
-          [(ngModel)]="row['Take-outUnit']"
           placeholder="Enter Unit"
         />
       </td>
