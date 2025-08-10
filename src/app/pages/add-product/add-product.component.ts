@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ComponentTableComponent } from '../../components/component-table/component-table.component';
@@ -10,6 +10,8 @@ import { TagApi, Tag } from '../../api/tags';
 import { SupplierApi, Supplier } from '../../api/suppliers';
 import { OutletApi, Outlet } from '../../api/outlets';
 import { ProductOutletPriceApi, ProductOutletPrice } from '../../api/outlets';
+import { RecipeApi } from '../../api/recipes';
+import { ProductTagApi } from '../../api/product-tags';
 
 interface UIOutlet {
   name: string;
@@ -50,6 +52,8 @@ export class AddProductComponent implements OnInit {
 
   activeLink = 'products';
 
+  @ViewChild(ComponentTableComponent) componentTable!: ComponentTableComponent;
+
   constructor(
     private productShareService: ProductShareService,
     private productApi: ProductApi,
@@ -57,14 +61,17 @@ export class AddProductComponent implements OnInit {
     private tagApi: TagApi,
     private supplierApi: SupplierApi,
     private outletApi: OutletApi,
-    private productOutletPriceApi: ProductOutletPriceApi
+    private productOutletPriceApi: ProductOutletPriceApi,
+    private recipeApi: RecipeApi,
+    private productTagApi: ProductTagApi
   ) {}
 
   ngOnInit() {
     this.categoryApi.getAll().subscribe((data) => (this.categories = data));
     this.tagApi.getAll().subscribe((data) => (this.tags = data));
     this.supplierApi.getAll().subscribe((data) => (this.suppliers = data));
-    // Outlets are initialized with default values above
+    // Load existing outlets to resolve outlet_id by name when creating prices
+    this.outletApi.getAll().subscribe((data) => (this.selectedOutlets = data));
   }
 
   ClickLinkHandler(link: string) {
@@ -95,39 +102,58 @@ export class AddProductComponent implements OnInit {
   }
 
   createProduct() {
-    // Build product payload
-    const payload: any = {
+    // 1) Create Product (include provided product_id if any)
+    const maybeId = this.product_form['ProductID']
+      ? Number(this.product_form['ProductID'])
+      : undefined;
+    const productPayload: any = {
+      ...(Number.isFinite(maybeId) ? { id: maybeId } : {}),
       name: this.product_form['ProductName'],
       variant_group_id: this.product_form['VariantGroupID'],
       sku: this.product_form['SKU'],
       category_id: this.selectedCategory?.id,
       supplier_id: this.selectedSupplier?.id,
-      // Add more fields as needed
     };
 
-
-    // Create product
-    this.productApi.create(payload).subscribe((product) => {
-      // Attach outlet prices to product
+    this.productApi.create(productPayload).subscribe((product) => {
+      const productId = product.id;
+      
+      // 2) Create Outlet prices (send only product_id, name, price)
       this.outlets.forEach((outlet) => {
         if (outlet.price != null && outlet.name) {
-          this.productOutletPriceApi
-            .create({
-              product_id: product.id,
-              name: outlet.name,
-              price: outlet.price,
-            })
-            .subscribe();
+          const outletPayload: any = {
+            product_id: productId,
+            name: outlet.name,
+            price: outlet.price,
+          };
+          this.productOutletPriceApi.create(outletPayload as any).subscribe();
         }
       });
+      // 3) Create Recipe components from Component Table
+      if (this.componentTable?.dataSource?.data?.length) {
+        this.componentTable.dataSource.data.forEach((row: any) => {
+          const recipePayload: any = {
+            product_id: productId,
+            recipe: row.component, // logical recipe item name
+            item_id: row.item_id,
+            quantity: row.quantity ?? 1,
+            isTakeout: false,
+            // keep existing fields for compatibility
+            name: row.component,
+            description: `Qty: ${row.quantity ?? 1} ${row['Quantity'] || ''}`,
+          };
+          this.recipeApi.create(recipePayload as any).subscribe();
+        });
+      }
 
-      // Attach tags to product
+      // 4) Attach Tags (basic)
       this.selectedTags.forEach((tag) => {
-        // If you have ProductTagApi, use it here
-        // Example: this.productTagApi.create({ product_id: product.id, tag_id: tag.id }).subscribe();
+        this.productTagApi
+          .create({
+            name: tag.name,
+          })
+          .subscribe();
       });
-
-      // Optionally show success message or redirect
     });
   }
 }
