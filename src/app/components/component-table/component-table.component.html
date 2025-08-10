@@ -2,12 +2,15 @@
   <div
     class="flex items-center gap-4 p-4 flex-wrap w-full md:w-7/12 md:flex-row md:gap-4 md:p-4"
   >
-    <input
+    <select
       class="border border-black rounded-[10px] h-[46px] px-[10px] w-full md:w-[29%] mb-2 md:mb-0"
-      [(ngModel)]="newItemComponent"
-      placeholder="Enter Component"
-    />
-    <!-- Only input for component name -->
+      [(ngModel)]="selectedInventoryItemId"
+    >
+      <option value="" disabled selected>Select Inventory Item</option>
+      <option *ngFor="let item of inventoryItems" [value]="item.item_id">
+        {{ item.name }} ({{ item.unit }})
+      </option>
+    </select>
   </div>
 
   <div
@@ -15,7 +18,7 @@
   >
     <button
       (click)="addNewItem()"
-      [disabled]="!newItemComponent"
+      [disabled]="!selectedInventoryItemId"
       class="bg-[#634941] rounded-[10px] h-[46px] w-full md:w-4/5 text-[16px] font-bold font-sans text-white mb-2 md:mb-0"
     >
       Add Item
